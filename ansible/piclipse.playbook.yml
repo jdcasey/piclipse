@@ -23,4 +23,16 @@
       git:
         repo: 'https://github.com/jdcasey/piclipse.git'
         dest: /opt/piclipse
+    - name: copy systemd service
+      copy:
+        src: files/piclipse.service
+        dest: /etc/systemd/system/piclipse.service
+        owner: root
+        group: root
+    - name: enable and start piclipse service
+      systemd:
+        name: piclipse
+        daemon_reload: yes
+        enable: yes
+        state: restarted
         
