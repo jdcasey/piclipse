@@ -1,0 +1,26 @@
+---
+  hosts: pinocs
+  remote_user: pi
+  become: yes
+  become_user: root
+  tasks:
+    - name: update apt
+      apt:
+        update_cache: yes
+    - name: upgrade apt
+      apt:
+        name: '*'
+        state: latest
+    - name: install packages
+      apt:
+        name: '{{ item }}'
+        state: present
+      with_items:
+        - python-picamera
+        - git
+        - screen
+    - name: clone piclipse
+      git:
+        repo: 'https://github.com/jdcasey/piclipse.git'
+        dest: /opt/piclipse
+        
