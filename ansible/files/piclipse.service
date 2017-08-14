@@ -2,7 +2,7 @@
 Description=PiClipse Video and Image Capture
 
 [Service]
-ExecStart=/opt/piclipse/piclipse.py
+ExecStart=/opt/piclipse/piclipse.py /opt/piclipse-data
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure

@@ -23,6 +23,10 @@
       git:
         repo: 'https://github.com/jdcasey/piclipse.git'
         dest: /opt/piclipse
+    - name: make piclipse data dir
+      file:
+        name: /opt/piclipse-data
+        state: directory
     - name: copy systemd service
       copy:
         src: files/piclipse.service
