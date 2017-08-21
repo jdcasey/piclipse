@@ -19,6 +19,7 @@ import picamera
 import sys
 import os
 import datetime as dt
+from subprocess import call
 
 STILL_RESOLUTION = (2592,1944)
 VID_RESOLUTION = (1920,1080)
@@ -28,7 +29,7 @@ MB=1024*1024
 OUT_DIR=sys.argv[1]
 if not os.path.isdir(OUT_DIR):
 	print "Cannot find output directory: %s\n\nUsage: %s <output-dir>" % (OUT_DIR, sys.argv[0])
-	exit 1
+	exit(1)
 
 # Sub-directories for pictures and videos, to keep things cleaner
 CAP_DIR = os.path.join(OUT_DIR, "Pictures")
@@ -51,6 +52,9 @@ GPIO.setup(RECORD_SW, GPIO.IN)
 GPIO.setup(CAPTURE_SW, GPIO.IN)
 GPIO.setup(RECORD_LED, GPIO.OUT)
 GPIO.setup(READY_LED, GPIO.OUT)
+
+def poweroff():
+    call("nohup shutdown -P now", shell=True)
 
 def check_free_space(minsz=10*MB):
 	'''Ensure this application has enough free space to store captured
@@ -102,6 +106,20 @@ try:
     # Loop...endlessly. Check pin inputs and verify minimum disk availability 
     # with each loop.
     while True:
+
+        # If the user presses record and capture simultaneously
+        # and holds them for 2 seconds, poweroff.
+        if GPIO.input(RECORD_SW) and GPIO.input(CAPTURE_SW):
+            sleep(2)
+            if GPIO.input(RECORD_SW) and GPIO.input(CAPTURE_SW):
+                for _ in range(5):
+                    GPIO.output(READY_LED, on)
+                    GPIO.output(RECORD_LED, on)
+                    sleep(0.5)
+                    GPIO.output(READY_LED, off)
+                    GPIO.output(RECORD_LED, off)
+                    sleep(0.5)
+                poweroff()
 
     	# If we don't have enough free space, we should really quit.
     	# HOWEVER, since this is designed to be managed by systemd,

@@ -1,48 +1,44 @@
 ---
-  hosts: pinocs
-  remote_user: pi
-  become: yes
-  become_user: root
-  tasks:
-    - name: update apt
-      apt:
-        update_cache: yes
-    - name: upgrade apt
-      apt:
-        name: '*'
-        state: latest
-    - name: install packages
-      apt:
-        name: '{{ item }}'
-        state: present
-      with_items:
-        - python-picamera
-        - git
-        - screen
-    - name: clone piclipse
-      git:
-        repo: 'https://github.com/jdcasey/piclipse.git'
-        dest: /opt/piclipse
-    - name: make piclipse data dir
-      file:
-        name: /opt/piclipse-data
-        state: directory
-    - name: mount piclipse-data usb drive
-      mount:
-        path: /opt/piclipse-data
-        src: /dev/sda1
-        fstype: ext4
-        state: present
-    - name: copy systemd service
-      copy:
-        src: files/piclipse.service
-        dest: /etc/systemd/system/piclipse.service
-        owner: root
-        group: root
-    - name: enable and start piclipse service
-      systemd:
-        name: piclipse
-        daemon_reload: yes
-        enable: yes
-        state: restarted
-        
+  - hosts: pinocs
+    remote_user: pi
+    become: yes
+    become_user: root
+    tasks:
+      - name: update apt
+        apt:
+          update_cache: yes
+      - name: install packages
+        apt:
+          name: '{{ item }}'
+          state: present
+        with_items:
+          - python-picamera
+          - git
+          - screen
+      - name: clone piclipse
+        git:
+          repo: 'https://github.com/jdcasey/piclipse.git'
+          dest: /opt/piclipse
+      - name: make piclipse data dir
+        file:
+          name: /opt/piclipse-data
+          state: directory
+      - name: mount piclipse-data usb drive
+        mount:
+          path: /opt/piclipse-data
+          src: /dev/sda1
+          fstype: ext4
+          state: present
+      - name: copy systemd service
+        copy:
+          src: files/piclipse.service
+          dest: /etc/systemd/system/piclipse.service
+          owner: root
+          group: root
+      - name: enable and start piclipse service
+        systemd:
+          name: piclipse
+          daemon_reload: yes
+          enabled: yes
+          state: restarted
+          
