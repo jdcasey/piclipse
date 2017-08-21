@@ -27,6 +27,12 @@
       file:
         name: /opt/piclipse-data
         state: directory
+    - name: mount piclipse-data usb drive
+      mount:
+        path: /opt/piclipse-data
+        src: /dev/sda1
+        fstype: ext4
+        state: present
     - name: copy systemd service
       copy:
         src: files/piclipse.service
