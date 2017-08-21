@@ -90,6 +90,8 @@ def stop_recording():
 
 # Setup the picam with some basic settings.
 cam = picamera.PiCamera()
+cam.hflip = True
+cam.vflip = True
 #cam.resolution = (1024,768)
 
 # State for the loop to help us keep track of what's going on (recording in progress?)
