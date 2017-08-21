@@ -113,11 +113,11 @@ try:
             sleep(2)
             if GPIO.input(RECORD_SW) and GPIO.input(CAPTURE_SW):
                 for _ in range(5):
-                    GPIO.output(READY_LED, on)
-                    GPIO.output(RECORD_LED, on)
+                    GPIO.output(READY_LED, 1)
+                    GPIO.output(RECORD_LED, 1)
                     sleep(0.5)
-                    GPIO.output(READY_LED, off)
-                    GPIO.output(RECORD_LED, off)
+                    GPIO.output(READY_LED, 0)
+                    GPIO.output(RECORD_LED, 0)
                     sleep(0.5)
                 poweroff()
 
