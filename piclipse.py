@@ -20,6 +20,8 @@ import sys
 import os
 import datetime as dt
 
+STILL_RESOLUTION = (2592,1944)
+VID_RESOLUTION = (1920,1080)
 MB=1024*1024
 
 # This is the first argument to the service, and establishes where output should be written.
@@ -63,6 +65,7 @@ def capture_picture():
 	fname = dt.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + ".jpg"
 	path = os.path.join(CAP_DIR, fname)
     # with picamera.PiCamera() as cam:
+    cam.resolution = STILL_RESOLUTION
     cam.start_preview()
 
     sleep(2)
@@ -73,6 +76,8 @@ def start_recording():
 	as the filename format.'''
 	fname = dt.datetime.now().strftime('%Y-%m-%d-%H-%M-%S') + ".h264"
 	path = os.path.join(VID_DIR, fname)
+
+    cam.resolution = VID_RESOLUTION
     cam.start_recording(path)
 
 def stop_recording():
@@ -81,7 +86,7 @@ def stop_recording():
 
 # Setup the picam with some basic settings.
 cam = picamera.PiCamera()
-cam.resolution = (1024,768)
+#cam.resolution = (1024,768)
 
 # State for the loop to help us keep track of what's going on (recording in progress?)
 # along with whether the record light is on or off.
