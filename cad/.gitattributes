@@ -1,0 +1,2 @@
+pinocs-piB.fcstd filter=lfs diff=lfs merge=lfs -text
+pinocs.FCStd filter=lfs diff=lfs merge=lfs -text

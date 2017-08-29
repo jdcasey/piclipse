@@ -30,7 +30,7 @@ chip_carve_h=1.75;
 chip_carve_y=14;
 chip_carve_x=11.25;
 
-sm_filter_id=30.5;
+sm_filter_id=30;
 sm_filter_h=10;
 sm_filter_flare=7.6;
 sm_cuff_id=33;
@@ -211,10 +211,10 @@ module pinoc_filter_ring(id=sm_filter_id, cuff_wall=sm_cuff_wall, filter_flare=s
 //back();
 //front();
 
-pinocs_cuff();
+//pinocs_cuff();
 //pinocs_cuff(lg_cuff_id, lg_cuff_h, lg_cuff_wall);
 //pinoc_filter();
 //pinoc_filter_ring();
 
-//pinoc_filter(lg_filter_id, lg_filter_h, lg_cuff_wall, lg_filter_flare);
+pinoc_filter(lg_filter_id, lg_filter_h, lg_cuff_wall, lg_filter_flare);
 //pinoc_filter_ring(lg_filter_id, lg_cuff_wall, lg_filter_flare);
