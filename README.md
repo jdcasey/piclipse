@@ -7,10 +7,10 @@ Pinoc relies on the use of a Raspberry Pi camera module, which wires directly in
 
 # Software
 
-The software for this system centers on a small python app called `pinoc.py`, which is located in the `code/` directory. It can be installed using Ansible, via the playbook in the `ansible/` directory. You'll find instructions for installing the software (including using the Ansible playbook) in [code/README.md](code/README.md).
+The software for this system centers on a small python app called `pinoc.py`, which is located in the `code/` directory. It can be installed using Ansible, via the playbook in the `ansible/` directory. You'll find instructions for installing the software (including using the Ansible playbook) in the [README.md under code/](code/).
 
 The software README also contains instructions for wiring the buttons and LEDs to the RPi.
 
 # Printed Fittings
 
-In addition to software, you also need a place to hold buttons, LEDs, a Raspberry Pi, and a battery. The CAD and STL files for those are contained in `cad/` and `cad/stl/`, respectively. See [cad/README.md](cad/README.md) for more information on how to use those files.
+In addition to software, you also need a place to hold buttons, LEDs, a Raspberry Pi, and a battery. The CAD and STL files for those are contained in `cad/` and `cad/stl/`, respectively. See [README.md under cad/](cad/) for more information on how to use those files.
