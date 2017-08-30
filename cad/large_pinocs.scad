@@ -1,15 +1,17 @@
 $fn=60;
 
+// tuned for Celestron Cometron 7x50 binoculars
+// https://www.amazon.com/gp/product/B00DV6SI3Q/ref=oh_aui_search_detailpage?ie=UTF8&psc=1
 major_r1=19.5;
 major_r2=21.5;
 minor_r=12;
 center_dist=major_r1+minor_r-6;
 
+// six passes with 0.4 nozzle
 wall=2.4;
 h=20;
 
 theta=atan((major_r1-minor_r)/center_dist);
-echo(theta);
 
 module cuff(){
     difference(){
@@ -71,6 +73,8 @@ module block_holes(){
     }
 }
 
+// One is right-hand side, other is left-hand side.
+// I can't remember which is which...
 module assy(){
     translate([0,25,0])
     difference(){
@@ -81,17 +85,21 @@ module assy(){
                 block();
         }
         
-            translate([0,18,0])
-            rotate([0,0,-45])
-        block_holes();
+        // Angling this makes adjoining panel parallel to top of binocs
+        translate([0,18,0])
+        rotate([0,0,-45])
+            block_holes();
     }
 }
 
+// One is right-hand side, other is left-hand side.
+// I can't remember which is which...
 module mirrorOfAssy(){
     mirror([0,1,0])
       assy();
 }
 
+// Plate for adding wiring / LEDs / buttons
 module button_plate(){
     f=2;
     difference(){

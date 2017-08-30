@@ -1,12 +1,12 @@
 [Unit]
-Description=PiClipse Video and Image Capture
+Description=Pinoc Video and Image Capture
 
 [Service]
-ExecStart=/opt/piclipse/piclipse.py /opt/piclipse-data
+ExecStart=/opt/pinoc/code/pinoc.py /opt/pinoc-data
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
-Alias=piclipse.service
+Alias=pinoc.service

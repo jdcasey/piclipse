@@ -15,29 +15,29 @@
           - python-picamera
           - git
           - screen
-      - name: clone piclipse
+      - name: clone pinoc
         git:
-          repo: 'https://github.com/jdcasey/piclipse.git'
-          dest: /opt/piclipse
-      - name: make piclipse data dir
+          repo: 'https://github.com/jdcasey/pinoc.git'
+          dest: /opt/pinoc
+      - name: make pinoc data dir
         file:
-          name: /opt/piclipse-data
+          name: /opt/pinoc-data
           state: directory
       - name: mount piclipse-data usb drive
         mount:
-          path: /opt/piclipse-data
+          path: /opt/pinoc-data
           src: /dev/sda1
           fstype: ext4
           state: present
       - name: copy systemd service
         copy:
-          src: files/piclipse.service
-          dest: /etc/systemd/system/piclipse.service
+          src: files/pinoc.service
+          dest: /etc/systemd/system/pinoc.service
           owner: root
           group: root
-      - name: enable and start piclipse service
+      - name: enable and start pinoc service
         systemd:
-          name: piclipse
+          name: pinoc
           daemon_reload: yes
           enabled: yes
           state: restarted

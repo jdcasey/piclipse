@@ -1,5 +1,27 @@
 $fn=100;
 
+// Tuned for Bushness Powerview compact folding binoculars
+sm_filter_id=30;
+sm_filter_h=10;
+sm_filter_flare=7.6;
+sm_cuff_id=33;
+sm_cuff_h=9.75;
+sm_cuff_wall=0.8;
+
+// Tuned for Celestron Cometron 7x50 binoculars
+lg_cuff_id=44;
+lg_cuff_h=18;
+lg_filter_id=63.75;
+lg_filter_h=12;
+lg_filter_flare=16;
+lg_cuff_wall=1.2;
+
+// -----------------------------------------------------------------
+// The parameter below are a little more "set in stone" relative
+// to the fit of a picam board, etc.
+// -----------------------------------------------------------------
+
+
 side=25.5;
 cuff_wall=4.25;
 
@@ -30,20 +52,12 @@ chip_carve_h=1.75;
 chip_carve_y=14;
 chip_carve_x=11.25;
 
-sm_filter_id=30;
-sm_filter_h=10;
-sm_filter_flare=7.6;
-sm_cuff_id=33;
-sm_cuff_h=9.75;
-sm_cuff_wall=0.8;
-
-lg_cuff_id=44;
-lg_cuff_h=18;
-lg_filter_id=63.75;
-lg_filter_h=12;
-lg_filter_flare=16;
-lg_cuff_wall=1.2;
-
+// The front is the side that has the opening for the camera
+// The board actually fixes to the back, then the whole
+// thing press-fits into the front.
+//
+// This is combined into the cuff, so not all that useful on
+// its own.
 module front(ymax=base_carve_side+2*wall, yoff=0){
     difference(){
         hull(){
@@ -87,6 +101,8 @@ module back_blank(){
     }
 }
 
+// This is the back, where the picam board actually affixes.
+// This IS NOT changed depending on cuff size.
 module back(){
     union(){
         difference(){
@@ -108,6 +124,8 @@ module back(){
     }
 }
 
+// This is the part that sleeves over the binocular eyepiece, and
+// integrates the front of the picam case
 module pinocs_cuff(id=sm_cuff_id, cuff_h=sm_cuff_h, cuff_wall=sm_cuff_wall){
     ymax=base_carve_side+2*wall;
     yoff=0;
@@ -176,6 +194,8 @@ module pinocs_cuff(id=sm_cuff_id, cuff_h=sm_cuff_h, cuff_wall=sm_cuff_wall){
     }
 }
 
+// This is the cuff part of the filter that fits over the front
+// of the binoculars, and forms the frame for mounting the solar filter film.
 module pinoc_filter(id=sm_filter_id, cuff_h=sm_filter_h, cuff_wall=sm_cuff_wall, filter_flare=sm_filter_flare){
     filter_d=id+filter_flare;
     
@@ -198,6 +218,8 @@ module pinoc_filter(id=sm_filter_id, cuff_h=sm_filter_h, cuff_wall=sm_cuff_wall,
     }
 }
 
+// This is the cap that traps the solar filter film against the pinoc_filter
+// base frame. Hot gluing the filter and cap and frame together is a good idea.
 module pinoc_filter_ring(id=sm_filter_id, cuff_wall=sm_cuff_wall, filter_flare=sm_filter_flare){
     difference(){
         cylinder(d=id+filter_flare+2*cuff_wall, h=6);

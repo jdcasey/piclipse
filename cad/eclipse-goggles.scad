@@ -1,15 +1,40 @@
+// how smooth you want curves to be in the
+// model
 $fn=100;
 
+// how tall on your face these goggles should be
+// (cheek to forehead, basically)
 h=50;
+
+// overall width of the goggles. Making these
+// wider gives some room to accommodate glasses
+// underneath
 w=150;
+
+// how deep into the goggles to cut out the
+// nose opening
 nose_h=24;
+
+// dist across the top (edge) of your nose, 
+// where the goggles hit. Make it a bit bigger
+// than you need...
 nose_w1=12;
+
+// dist across the base of your nose, to
+// ensure the goggles don't pinch your nostrils
+// Again, make it a little big...
 nose_w2=20;
+
+// deterines how squared off the goggles look
 fillet=16;
 
+// thickness (front to back) of the frames, caps, etc
 t=2;
+
+// width of frames (dist from lens to outer edge)
 frame=3;
 
+// The basic shape of a lens.
 module half_lens_blank(tol=0, ztol=0){
     z=t+ztol;
     zoff=-ztol/2;
@@ -33,6 +58,7 @@ module half_lens_blank(tol=0, ztol=0){
     }
 }
 
+// Basic shape of both lenses together.
 module full_lens_blank(tol=frame,ztol=0){
     union(){
         half_lens_blank(tol, ztol);
@@ -41,6 +67,14 @@ module full_lens_blank(tol=frame,ztol=0){
     }
 }
 
+// This is what you would expect. They print flat,
+// which means you have to fit them to your face
+// before use. To do this, use a heat gun or other
+// heat source to soften the plastic over the bridge
+// of the nose. Once it's a little bit pliable, push
+// the goggles onto your face and hold them for about
+// 20-30 seconds until that plastic cools into the
+// new shape.
 module full_frame(){
     difference(){
         union(){
@@ -88,6 +122,14 @@ module full_frame(){
     }
 }
 
+// These caps are used to hold the solar filter film
+// against the frames' eye holes. They are press-fit,
+// but a bit of hot glue is a nice addition to hold
+// it all together.
+//
+// I've also found that you can hot glue the film to
+// the caps, then hot glue the caps to the frame to
+// really keep it all together.
 module caps(){
     union(){
         difference(){
@@ -103,6 +145,8 @@ module caps(){
     }
 }
 
+// This is the tensioner that adjusts the fit when an
+// elastic band is used to hold the goggles on your face. 
 module tensioner(){
     tw=10;
     th=16;
